@@ -1,0 +1,43 @@
+// Minimal build.gradle for Lift project
+apply {
+    plugin 'scala'
+    plugin 'war'
+    plugin 'jetty'
+}
+
+scalaVersion = '2.7.7'
+liftVersion = '2.0-M4'
+
+jettyRun.contextPath = "/"
+
+repositories {
+    mavenCentral()
+    mavenRepo name:'scala-releases', urls:'http://scala-tools.org/repo-releases/'
+}
+
+dependencies {
+    scalaTools "org.scala-lang:scala-compiler:$scalaVersion", 
+        "org.scala-lang:scala-library:$scalaVersion"    
+
+    compile "org.scala-lang:scala-library:$scalaVersion", 
+    	"net.liftweb:lift-webkit:$liftVersion",
+    	"net.liftweb:lift-mapper:$liftVersion", 
+    	"net.liftweb:lift-json:$liftVersion", 
+    	"net.liftweb:lift-util:$liftVersion",
+    	"net.liftweb:lift-common:$liftVersion",
+        "com.h2database:h2:1.1.117"
+
+    testCompile "junit:junit:4.5", 
+        "org.scala-tools.testing:specs:1.6.1",
+        "org.scala-lang:scala-compiler:$scalaVersion",
+        'org.mortbay.jetty:jetty:6.1.22',
+        'org.mortbay.jetty:jetty-util:6.1.22',
+        'org.mortbay.jetty:jetty-management:6.1.22'
+
+	
+    providedCompile 'javax.servlet:servlet-api:2.5' 
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '0.9-preview-1'
+}
