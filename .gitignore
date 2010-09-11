@@ -7,7 +7,8 @@ syntax: glob
 *.off
 *.old
 .DS_Store
-
+*.db
+:
 # logs
 derby.log
 
@@ -35,6 +36,7 @@ project/boot
 .svn
 .CVS
 .hg*
+.gradle
 
 # switch to regexp syntax.
 #  syntax: regexp
