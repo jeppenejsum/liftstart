@@ -5,8 +5,8 @@ apply {
     plugin 'jetty'
 }
 
-scalaVersion = '2.7.7'
-liftVersion = '2.0-M4'
+scalaVersion = '2.8.0'
+liftVersion = '2.1-RC1'
 
 jettyRun.contextPath = "/"
 
@@ -20,19 +20,20 @@ dependencies {
         "org.scala-lang:scala-library:$scalaVersion"    
 
     compile "org.scala-lang:scala-library:$scalaVersion", 
-    	"net.liftweb:lift-webkit:$liftVersion",
-    	"net.liftweb:lift-mapper:$liftVersion", 
-    	"net.liftweb:lift-json:$liftVersion", 
-    	"net.liftweb:lift-util:$liftVersion",
-    	"net.liftweb:lift-common:$liftVersion",
-        "com.h2database:h2:1.1.117"
+    	"net.liftweb:lift-mapper_2.8.0:$liftVersion", 
+    	"net.liftweb:lift-webkit_2.8.0:$liftVersion",
+    	"net.liftweb:lift-util_2.8.0:$liftVersion",
+    	"net.liftweb:lift-actor_2.8.0:$liftVersion",
+    	"net.liftweb:lift-common_2.8.0:$liftVersion",
+    	"net.liftweb:lift-json_2.8.0:$liftVersion", 
+        "com.h2database:h2:1.2.138"
 
     testCompile "junit:junit:4.5", 
-        "org.scala-tools.testing:specs:1.6.1",
+        "org.scala-tools.testing:specs_2.8.0:1.6.5",
         "org.scala-lang:scala-compiler:$scalaVersion",
-        'org.mortbay.jetty:jetty:6.1.22',
-        'org.mortbay.jetty:jetty-util:6.1.22',
-        'org.mortbay.jetty:jetty-management:6.1.22'
+        'org.mortbay.jetty:jetty:6.1.25',
+        'org.mortbay.jetty:jetty-util:6.1.25',
+        'org.mortbay.jetty:jetty-management:6.1.25'
 
 	
     providedCompile 'javax.servlet:servlet-api:2.5' 
