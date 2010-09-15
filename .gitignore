@@ -17,6 +17,7 @@ derby.log
 .classpath
 .project
 .manager
+.scala_dependencies
 
 # building
 target

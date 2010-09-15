@@ -3,13 +3,20 @@ apply {
     plugin 'scala'
     plugin 'war'
     plugin 'jetty'
+    plugin 'eclipse'
 }
 
 scalaVersion = '2.8.0'
 liftVersion = '2.1-RC1'
+specsVersion = scalaVersion.startsWith("2.8") ? "1.6.5" : "1.6.1"
 
 jettyRun.contextPath = "/"
+compileScala.scalaCompileOptions.optimize = true // Need this for Scala 2.8.0
 
+// Configure for use with Scala 2.8 Plugin
+eclipseClasspath.containers += ["org.scala-ide.sdt.launching.SCALA_CONTAINER"]
+eclipseClasspath.minusConfigurations = [configurations.scalaTools]
+  
 repositories {
     mavenCentral()
     mavenRepo name:'scala-releases', urls:'http://scala-tools.org/repo-releases/'
@@ -29,11 +36,12 @@ dependencies {
         "com.h2database:h2:1.2.138"
 
     testCompile "junit:junit:4.5", 
-        "org.scala-tools.testing:specs_$scalaVersion:1.6.1",
+        "org.scala-tools.testing:specs_$scalaVersion:$specsVersion",
         "org.scala-lang:scala-compiler:$scalaVersion",
         'org.mortbay.jetty:jetty:6.1.25',
         'org.mortbay.jetty:jetty-util:6.1.25',
-        'org.mortbay.jetty:jetty-management:6.1.25'
+        'org.mortbay.jetty:jetty-management:6.1.25',
+	"org.scala-lang:scala-compiler:$scalaVersion"  // Needed for LiftConsole	
 
 	
     providedCompile 'javax.servlet:servlet-api:2.5' 
