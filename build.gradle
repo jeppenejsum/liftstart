@@ -6,20 +6,21 @@ apply {
     plugin 'eclipse'
 }
 
-scalaVersion = '2.8.0'
-liftVersion = '2.1-RC1'
-specsVersion = scalaVersion.startsWith("2.8") ? "1.6.5" : "1.6.1"
+scalaVersion = '2.8.1'
+liftVersion = '2.2'
+specsVersion = "1.6.8-SNAPSHOT"
 
 jettyRun.contextPath = "/"
-compileScala.scalaCompileOptions.optimize = true // Need this for Scala 2.8.0
+//compileScala.scalaCompileOptions.optimize = true // Need this for Scala 2.8.0
 
 // Configure for use with Scala 2.8 Plugin
-eclipseClasspath.containers += ["org.scala-ide.sdt.launching.SCALA_CONTAINER"]
-eclipseClasspath.minusConfigurations = [configurations.scalaTools]
+//eclipseClasspath.containers += ["org.scala-ide.sdt.launching.SCALA_CONTAINER"]
+//eclipseClasspath.minusConfigurations = [configurations.scalaTools]
   
 repositories {
     mavenCentral()
     mavenRepo name:'scala-releases', urls:'http://scala-tools.org/repo-releases/'
+    mavenRepo name:'scala-snapshots', urls:'http://scala-tools.org/repo-snapshots/'
 }
 
 dependencies {
@@ -33,6 +34,8 @@ dependencies {
     	"net.liftweb:lift-actor_$scalaVersion:$liftVersion",
     	"net.liftweb:lift-common_$scalaVersion:$liftVersion",
     	"net.liftweb:lift-json_$scalaVersion:$liftVersion", 
+        "ch.qos.logback:logback-classic:0.9.28",
+        "ch.qos.logback:logback-core:0.9.28",
         "com.h2database:h2:1.2.138"
 
     testCompile "junit:junit:4.5", 
@@ -48,5 +51,5 @@ dependencies {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '0.9-rc-1'
+    gradleVersion = '1.0-milestone-1'
 }
