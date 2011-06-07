@@ -1,8 +1,8 @@
-package example {
-package snippet {
+package code
+package snippet
 
 import org.specs._
-import org.specs.runner.JUnit3
+import org.specs.runner.JUnit4
 import org.specs.runner.ConsoleRunner
 import net.liftweb._
 import http._
@@ -14,7 +14,7 @@ import Helpers._
 import lib._
 
 
-class HelloWorldTestSpecsAsTest extends JUnit3(HelloWorldTestSpecs)
+class HelloWorldTestSpecsAsTest extends JUnit4(HelloWorldTestSpecs)
 object HelloWorldTestSpecsRunner extends ConsoleRunner(HelloWorldTestSpecs)
 
 object HelloWorldTestSpecs extends Specification {
@@ -34,13 +34,10 @@ object HelloWorldTestSpecs extends Specification {
       val hello = new HelloWorld
       Thread.sleep(1000) // make sure the time changes
 
-      val str = hello.howdy(<span>Hello at <b:time/></span>).toString
+      val str = hello.howdy(<span>Welcome to your Lift app at <span id="time">Time goes here</span></span>).toString
 
       str.indexOf(stableTime.toString) must be >= 0
       str.indexOf("Hello at") must be >= 0
     }
   }
-}
-
-}
 }

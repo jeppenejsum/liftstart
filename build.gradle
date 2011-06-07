@@ -7,16 +7,11 @@ apply {
 }
 
 scalaVersion = '2.8.1'
-liftVersion = '2.2'
-specsVersion = "1.6.8-SNAPSHOT"
+liftVersion = '2.4-M1'
+specsVersion = "1.6.8"
 
 jettyRun.contextPath = "/"
-//compileScala.scalaCompileOptions.optimize = true // Need this for Scala 2.8.0
 
-// Configure for use with Scala 2.8 Plugin
-//eclipseClasspath.containers += ["org.scala-ide.sdt.launching.SCALA_CONTAINER"]
-//eclipseClasspath.minusConfigurations = [configurations.scalaTools]
-  
 repositories {
     mavenCentral()
     mavenRepo name:'scala-releases', urls:'http://scala-tools.org/repo-releases/'
@@ -36,7 +31,7 @@ dependencies {
     	"net.liftweb:lift-json_$scalaVersion:$liftVersion", 
         "ch.qos.logback:logback-classic:0.9.28",
         "ch.qos.logback:logback-core:0.9.28",
-        "com.h2database:h2:1.2.138"
+        "com.h2database:h2:1.3.155"
 
     testCompile "junit:junit:4.5", 
         "org.scala-tools.testing:specs_$scalaVersion:$specsVersion",
@@ -51,5 +46,5 @@ dependencies {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.0-milestone-1'
+    gradleVersion = '1.0-milestone-3'
 }
