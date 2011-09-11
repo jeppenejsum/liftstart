@@ -6,9 +6,9 @@ apply {
     plugin 'eclipse'
 }
 
-scalaVersion = '2.8.1'
-liftVersion = '2.4-M1'
-specsVersion = "1.6.8"
+scalaVersion = '2.9.1'
+liftVersion = '2.4-M4'
+specsVersion = "1.6.9"
 
 jettyRun.contextPath = "/"
 
@@ -29,8 +29,8 @@ dependencies {
     	"net.liftweb:lift-actor_$scalaVersion:$liftVersion",
     	"net.liftweb:lift-common_$scalaVersion:$liftVersion",
     	"net.liftweb:lift-json_$scalaVersion:$liftVersion", 
-        "ch.qos.logback:logback-classic:0.9.28",
-        "ch.qos.logback:logback-core:0.9.28",
+        "ch.qos.logback:logback-classic:0.9.29",
+        "ch.qos.logback:logback-core:0.9.29",
         "com.h2database:h2:1.3.155"
 
     testCompile "junit:junit:4.5", 
@@ -41,7 +41,6 @@ dependencies {
         'org.mortbay.jetty:jetty-management:6.1.25',
 	"org.scala-lang:scala-compiler:$scalaVersion"  // Needed for LiftConsole	
 
-	
     providedCompile 'javax.servlet:servlet-api:2.5' 
 }
 
