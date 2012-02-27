@@ -7,8 +7,9 @@ apply {
 }
 
 scalaVersion = '2.9.1'
-liftVersion = '2.4-M4'
+liftVersion = '2.4'
 specsVersion = "1.6.9"
+specs2Version = "1.8.2"
 
 jettyRun.contextPath = "/"
 
@@ -17,10 +18,23 @@ repositories {
     mavenRepo name:'scala-releases', urls:'http://scala-tools.org/repo-releases/'
     mavenRepo name:'scala-snapshots', urls:'http://scala-tools.org/repo-snapshots/'
 }
+configurations {
+    scalaCompiler
+    scalaLibrary
+}
+
+eclipse {
+  classpath.containers += ["org.scala-ide.sdt.launching.SCALA_CONTAINER"]
+  classpath.minusConfigurations = [configurations.scalaLibrary]
+  classpath.plusConfigurations =  ([configurations.scalaCompiler]  + classpath.plusConfigurations)
+}
 
 dependencies {
     scalaTools "org.scala-lang:scala-compiler:$scalaVersion", 
         "org.scala-lang:scala-library:$scalaVersion"    
+
+    scalaCompiler "org.scala-lang:scala-compiler:$scalaVersion"
+    scalaLibrary "org.scala-lang:scala-library:$scalaVersion"
 
     compile "org.scala-lang:scala-library:$scalaVersion", 
     	"net.liftweb:lift-mapper_$scalaVersion:$liftVersion", 
@@ -35,6 +49,7 @@ dependencies {
 
     testCompile "junit:junit:4.5", 
         "org.scala-tools.testing:specs_$scalaVersion:$specsVersion",
+        "org.specs2:specs2_$scalaVersion:$specs2Version",
         "org.scala-lang:scala-compiler:$scalaVersion",
         'org.mortbay.jetty:jetty:6.1.25',
         'org.mortbay.jetty:jetty-util:6.1.25',
@@ -45,5 +60,5 @@ dependencies {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.0-milestone-3'
+    gradleVersion = '1.0-milestone-8'
 }
