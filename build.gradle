@@ -6,18 +6,20 @@ apply {
     plugin 'eclipse'
 }
 
-scalaVersion = '2.9.1'
-liftVersion = '2.4'
-specsVersion = "1.6.9"
-specs2Version = "1.8.2"
+ext {
+  scalaVersion = '2.10'
+  liftVersion = '2.5-RC1'
+  specs2Version = "1.14"
+}
 
 jettyRun.contextPath = "/"
 
 repositories {
     mavenCentral()
-    mavenRepo name:'scala-releases', urls:'http://scala-tools.org/repo-releases/'
-    mavenRepo name:'scala-snapshots', urls:'http://scala-tools.org/repo-snapshots/'
+    mavenRepo name:'scala-releases', url:'http://scala-tools.org/repo-releases/'
+    mavenRepo name:'scala-snapshots', url:'http://scala-tools.org/repo-snapshots/'
 }
+
 configurations {
     scalaCompiler
     scalaLibrary
@@ -29,10 +31,13 @@ eclipse {
   classpath.plusConfigurations =  ([configurations.scalaCompiler]  + classpath.plusConfigurations)
 }
 
-dependencies {
-    scalaTools "org.scala-lang:scala-compiler:$scalaVersion", 
-        "org.scala-lang:scala-library:$scalaVersion"    
+tasks.withType(ScalaCompile) {
+  scalaCompileOptions.useCompileDaemon = false
+  scalaCompileOptions.useAnt = false
+  scalaCompileOptions.additionalParameters = ['-target:jvm-1.6']
+}
 
+dependencies {
     scalaCompiler "org.scala-lang:scala-compiler:$scalaVersion"
     scalaLibrary "org.scala-lang:scala-library:$scalaVersion"
 
@@ -43,22 +48,18 @@ dependencies {
     	"net.liftweb:lift-actor_$scalaVersion:$liftVersion",
     	"net.liftweb:lift-common_$scalaVersion:$liftVersion",
     	"net.liftweb:lift-json_$scalaVersion:$liftVersion", 
-        "ch.qos.logback:logback-classic:0.9.29",
-        "ch.qos.logback:logback-core:0.9.29",
+        "ch.qos.logback:logback-classic:1.0.9",
         "com.h2database:h2:1.3.155"
 
     testCompile "junit:junit:4.5", 
-        "org.scala-tools.testing:specs_$scalaVersion:$specsVersion",
         "org.specs2:specs2_$scalaVersion:$specs2Version",
-        "org.scala-lang:scala-compiler:$scalaVersion",
         'org.mortbay.jetty:jetty:6.1.25',
         'org.mortbay.jetty:jetty-util:6.1.25',
-        'org.mortbay.jetty:jetty-management:6.1.25',
-	"org.scala-lang:scala-compiler:$scalaVersion"  // Needed for LiftConsole	
+        'org.mortbay.jetty:jetty-management:6.1.25'
 
     providedCompile 'javax.servlet:servlet-api:2.5' 
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.0-milestone-8'
+    gradleVersion = '1.4'
 }
